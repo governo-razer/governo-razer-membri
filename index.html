@@ -407,6 +407,7 @@ body {
 .logout-btn:hover {
   background: rgba(255,68,68,0.2);
   border-color: rgba(255,68,68,0.4);
+  box-shadow: 0 0 15px rgba(255,68,68,0.1);
 }
 
 /* Sidebar */
@@ -441,6 +442,11 @@ body {
   overflow: hidden;
   border: 1px solid rgba(0,255,65,0.15);
   flex-shrink: 0;
+  box-shadow: 0 0 15px rgba(0,255,65,0.05);
+  transition: box-shadow 0.3s;
+}
+.sidebar-logo:hover {
+  box-shadow: 0 0 25px rgba(0,255,65,0.15);
 }
 
 .sidebar-logo img {
@@ -613,10 +619,27 @@ body {
   margin-left: var(--sidebar-width);
   padding-top: var(--topbar-height);
   min-height: 100vh;
+  position: relative;
+  background:
+    radial-gradient(ellipse at 10% 20%, rgba(0,255,65,0.015) 0%, transparent 50%),
+    radial-gradient(ellipse at 90% 80%, rgba(0,229,255,0.01) 0%, transparent 50%);
+}
+
+.main-content::before {
+  content: '';
+  position: fixed;
+  top: var(--topbar-height);
+  left: var(--sidebar-width);
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent), var(--cyan), transparent);
+  opacity: 0.15;
+  z-index: 50;
+  pointer-events: none;
 }
 
 .content-area {
-  padding: 40px;
+  padding: 36px 40px;
   max-width: 1100px;
   animation: fadeIn 0.4s ease;
 }
@@ -793,41 +816,6 @@ body {
   height: 1px;
   background: var(--border);
   margin: 24px 0;
-}
-
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 12px;
-  border-radius: 8px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-.badge-green {
-  background: rgba(0,255,65,0.1);
-  color: var(--accent);
-  border: 1px solid rgba(0,255,65,0.15);
-}
-
-.badge-yellow {
-  background: rgba(255,170,0,0.1);
-  color: var(--warning);
-  border: 1px solid rgba(255,170,0,0.15);
-}
-
-.badge-red {
-  background: rgba(255,68,68,0.1);
-  color: var(--danger);
-  border: 1px solid rgba(255,68,68,0.15);
-}
-
-.badge-blue {
-  background: rgba(68,136,255,0.1);
-  color: var(--info);
-  border: 1px solid rgba(68,136,255,0.15);
 }
 
 /* Homepage */
@@ -1156,21 +1144,22 @@ body {
 .price-table thead th {
   background: rgba(0,255,65,0.04);
   border-bottom: 2px solid rgba(0,255,65,0.12);
-  padding: 12px 16px;
+  padding: 12px 14px;
   text-align: left;
   font-family: 'Orbitron', sans-serif;
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   color: var(--accent);
   letter-spacing: 1.5px;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 .price-table thead th:first-child { border-radius: 10px 0 0 0; }
 .price-table thead th:last-child { border-radius: 0 10px 0 0; }
 .price-table tbody td {
-  padding: 12px 16px;
+  padding: 11px 14px;
   border-bottom: 1px solid var(--border);
-  font-size: 0.88rem;
+  font-size: 0.86rem;
   color: var(--text-secondary);
   vertical-align: middle;
 }
@@ -1187,11 +1176,58 @@ body {
   font-family: 'Orbitron', sans-serif;
   font-weight: 700;
   color: var(--accent);
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   white-space: nowrap;
+}
+.price-table td.comp {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 600;
+  color: var(--cyan);
+  font-size: 0.8rem;
+  white-space: nowrap;
+  opacity: 0.85;
 }
 .price-table tr.last-row td {
   background: rgba(255,68,68,0.03);
+}
+
+.table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-radius: 12px;
+}
+
+/* Badge styles */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 7px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+.badge-green {
+  background: rgba(0,255,65,0.08);
+  color: var(--accent);
+  border: 1px solid rgba(0,255,65,0.12);
+}
+.badge-yellow {
+  background: rgba(255,170,0,0.08);
+  color: var(--warning);
+  border: 1px solid rgba(255,170,0,0.12);
+}
+.badge-red {
+  background: rgba(255,68,68,0.08);
+  color: var(--danger);
+  border: 1px solid rgba(255,68,68,0.12);
+}
+.badge-blue {
+  background: rgba(68,153,255,0.08);
+  color: var(--info);
+  border: 1px solid rgba(68,153,255,0.12);
 }
 
 /* Responsive */
@@ -1218,11 +1254,16 @@ body {
   }
   .price-table thead th,
   .price-table tbody td {
-    padding: 8px 10px;
-    font-size: 0.78rem;
+    padding: 7px 8px;
+    font-size: 0.72rem;
   }
-  .price-table td.price {
-    font-size: 0.75rem;
+  .price-table td.price,
+  .price-table td.comp {
+    font-size: 0.7rem;
+  }
+  .price-table thead th {
+    font-size: 0.6rem;
+    letter-spacing: 0.8px;
   }
 }
 
@@ -1919,68 +1960,248 @@ La Procura può iniziare con le domande.</pre>
     <div class="content-area" id="page-listino" style="display:none">
       <div class="page-header">
         <h1>Listino <span class="accent">Prezzi</span></h1>
-        <p>Elenco completo dei prezzi dei servizi e dei documenti governativi</p>
+        <p>Elenco completo dei prezzi, durata e compenso per tutti i servizi e documenti governativi</p>
       </div>
 
+      <div class="card card-highlight">
+        <div class="highlight-box" style="margin:0">
+          <strong>💰 Compenso:</strong> Il compenso personale per ogni servizio è pari al <strong>40% del prezzo ufficiale</strong> (escluso Consulenza Legale e Assistenza in Cella, il cui compenso è calcolato sul prezzo concordato).
+        </div>
+      </div>
+
+      <!-- DOCUMENTI BASE -->
       <div class="card">
         <h2>📄 Documenti e Servizi Base</h2>
-        <p>Servizi disponibili per tutti i gradi a partire da <strong>Assistente Legale</strong>.</p>
+        <p>Servizi disponibili per i gradi a partire da <strong>Assistente Legale</strong> salvo diversa indicazione.</p>
         <div class="divider"></div>
+        <div class="table-wrap">
         <table class="price-table">
           <thead>
-            <tr><th>Servizio</th><th>Prezzo</th><th>Durata / Note</th></tr>
+            <tr>
+              <th>Tipo Documento</th>
+              <th>Prezzo Ufficiale</th>
+              <th>Compenso (40%)</th>
+              <th>Durata Validità</th>
+              <th>Grado Minimo</th>
+            </tr>
           </thead>
           <tbody>
-            <tr><td>Carta d'Identità</td><td class="price">$2.000</td><td>—</td></tr>
-            <tr><td>Patente di Guida</td><td class="price">$3.000</td><td>—</td></tr>
-            <tr><td>Porto d'Armi</td><td class="price">$35.000</td><td>Durata: 1 mese</td></tr>
-            <tr><td>Documento Lavorativo — Tirocinante</td><td class="price">$4.000</td><td>Durata: 2 settimane</td></tr>
-            <tr><td>Documento Lavorativo — Dipendente</td><td class="price">$10.000</td><td>Durata: 1 mese</td></tr>
-            <tr><td>Documento Lavorativo — Direttore</td><td class="price">$30.000</td><td>Durata: 3 mesi</td></tr>
-            <tr><td>Documento Vendita Ambulante</td><td class="price">$15.000</td><td>Durata: 1 mese</td></tr>
-            <tr><td>Permesso Vetri Oscurati</td><td class="price">$30.000</td><td>Ogni targa — Durata: 1 mese</td></tr>
-            <tr><td>Certificato di Parentela</td><td class="price">$15.000</td><td>Durata: 1 mese</td></tr>
-            <tr><td>Certificato di Matrimonio</td><td class="price">$15.000</td><td>Durata: 1 mese</td></tr>
-            <tr><td>Revoca Parentela o Matrimonio</td><td class="price">$15.000</td><td>Validità permanente</td></tr>
-            <tr><td>Info Precedenti Penali</td><td class="price">$3.000</td><td>—</td></tr>
-            <tr><td>Richiesta Pulizia Fedina</td><td class="price">$20.000</td><td>Durata: 2 settimane</td></tr>
+            <tr>
+              <td>Carta d'Identità</td>
+              <td class="price">$2.000</td>
+              <td class="comp">$800</td>
+              <td>—</td>
+              <td><span class="badge badge-green">Ass. Legale in su</span></td>
+            </tr>
+            <tr>
+              <td>Patente di Guida</td>
+              <td class="price">$3.000</td>
+              <td class="comp">$1.200</td>
+              <td>—</td>
+              <td><span class="badge badge-green">Ass. Legale in su</span></td>
+            </tr>
+            <tr>
+              <td>Info Precedenti Penali</td>
+              <td class="price">$3.000</td>
+              <td class="comp">$1.200</td>
+              <td>—</td>
+              <td><span class="badge badge-green">Ass. Legale in su</span></td>
+            </tr>
+            <tr>
+              <td>Consulenza Legale</td>
+              <td class="price">$0 – $50.000</td>
+              <td class="comp">40% del prezzo</td>
+              <td>Sessione singola</td>
+              <td><span class="badge badge-yellow">Avv. d'Ufficio in su</span></td>
+            </tr>
+            <tr>
+              <td>Assistenza in Cella</td>
+              <td class="price">$0 – $50.000</td>
+              <td class="comp">40% del prezzo</td>
+              <td>Durante la detenzione</td>
+              <td><span class="badge badge-yellow">Avv. d'Ufficio in su</span></td>
+            </tr>
+            <tr>
+              <td>Doc. Lavorativo — Tirocinante</td>
+              <td class="price">$4.000</td>
+              <td class="comp">$1.600</td>
+              <td>2 settimane</td>
+              <td><span class="badge badge-green">Ass. Legale in su</span></td>
+            </tr>
+            <tr>
+              <td>Doc. Lavorativo — Dipendente</td>
+              <td class="price">$10.000</td>
+              <td class="comp">$4.000</td>
+              <td>1 mese</td>
+              <td><span class="badge badge-green">Ass. Legale in su</span></td>
+            </tr>
+            <tr>
+              <td>Doc. Lavorativo — Direttore</td>
+              <td class="price">$30.000</td>
+              <td class="comp">$12.000</td>
+              <td>3 mesi</td>
+              <td><span class="badge badge-green">Ass. Legale in su</span></td>
+            </tr>
+            <tr>
+              <td>Redaz. e Registrazione Partita IVA</td>
+              <td class="price">$50.000</td>
+              <td class="comp">$20.000</td>
+              <td>Definitiva</td>
+              <td><span class="badge badge-blue">Min. Finanze</span></td>
+            </tr>
+            <tr>
+              <td>Documento Vendita Ambulante</td>
+              <td class="price">$15.000</td>
+              <td class="comp">$6.000</td>
+              <td>1 mese</td>
+              <td><span class="badge badge-green">Ass. Legale in su</span></td>
+            </tr>
+            <tr>
+              <td>Permesso Vetri Oscurati</td>
+              <td class="price">$30.000 / targa</td>
+              <td class="comp">$12.000</td>
+              <td>1 mese</td>
+              <td><span class="badge badge-green">Ass. Legale in su</span></td>
+            </tr>
+            <tr>
+              <td>Certificato di Parentela</td>
+              <td class="price">$15.000</td>
+              <td class="comp">$6.000</td>
+              <td>1 mese</td>
+              <td><span class="badge badge-green">Ass. Legale in su</span></td>
+            </tr>
+            <tr>
+              <td>Certificato di Matrimonio</td>
+              <td class="price">$15.000</td>
+              <td class="comp">$6.000</td>
+              <td>1 mese</td>
+              <td><span class="badge badge-green">Ass. Legale in su</span></td>
+            </tr>
+            <tr>
+              <td>Certificato Revoca Parentela/Matrimonio</td>
+              <td class="price">$15.000</td>
+              <td class="comp">$6.000</td>
+              <td>Permanente</td>
+              <td><span class="badge badge-green">Ass. Legale in su</span></td>
+            </tr>
+            <tr>
+              <td>Richiesta Pulizia Fedina</td>
+              <td class="price">$20.000</td>
+              <td class="comp">$8.000</td>
+              <td>2 settimane</td>
+              <td><span class="badge badge-green">Ass. Legale in su</span></td>
+            </tr>
+            <tr>
+              <td>Porto d'Armi</td>
+              <td class="price">$35.000</td>
+              <td class="comp">$14.000</td>
+              <td>1 mese</td>
+              <td><span class="badge badge-green">Ass. Legale in su</span></td>
+            </tr>
           </tbody>
         </table>
+        </div>
       </div>
 
+      <!-- PROCURA -->
       <div class="card">
-        <h2>🏛️ Servizi Procura</h2>
-        <p>Servizi riservati esclusivamente ai membri della <strong>Procura</strong> (Procuratore Aggiunto e gradi superiori).</p>
+        <h2>🛡️ Documenti e Permessi per la Procura</h2>
+        <p>Servizi riservati esclusivamente ai membri della <strong>Procura</strong> (Procuratore in su).</p>
         <div class="divider"></div>
+        <div class="table-wrap">
         <table class="price-table">
           <thead>
-            <tr><th>Servizio</th><th>Prezzo</th><th>Durata / Note</th></tr>
+            <tr>
+              <th>Servizio Procura</th>
+              <th>Prezzo Ufficiale</th>
+              <th>Compenso (40%)</th>
+              <th>Durata Validità</th>
+              <th>Grado Minimo</th>
+            </tr>
           </thead>
           <tbody>
-            <tr><td>Cambio Nome e Cognome</td><td class="price">$20.000</td><td>—</td></tr>
-            <tr><td>Permesso Maschera — 2 Settimane</td><td class="price">$75.000</td><td>Durata: 2 settimane</td></tr>
-            <tr><td>Permesso Maschera — 1 Mese</td><td class="price">$150.000</td><td>Durata: 1 mese</td></tr>
-            <tr><td>Permesso Maschera — 2 Mesi</td><td class="price">$275.000</td><td>Durata: 2 mesi</td></tr>
+            <tr>
+              <td>Cambio Nome e Cognome</td>
+              <td class="price">$20.000</td>
+              <td class="comp">$8.000</td>
+              <td>—</td>
+              <td><span class="badge badge-green">Procuratore in su</span></td>
+            </tr>
+            <tr>
+              <td>Permesso Maschera — 2 Settimane</td>
+              <td class="price">$75.000</td>
+              <td class="comp">$30.000</td>
+              <td>2 settimane</td>
+              <td><span class="badge badge-green">Procuratore in su</span></td>
+            </tr>
+            <tr>
+              <td>Permesso Maschera — 1 Mese</td>
+              <td class="price">$150.000</td>
+              <td class="comp">$60.000</td>
+              <td>1 mese</td>
+              <td><span class="badge badge-green">Procuratore in su</span></td>
+            </tr>
+            <tr>
+              <td>Permesso Maschera — 2 Mesi</td>
+              <td class="price">$275.000</td>
+              <td class="comp">$110.000</td>
+              <td>2 mesi</td>
+              <td><span class="badge badge-green">Procuratore in su</span></td>
+            </tr>
           </tbody>
         </table>
+        </div>
       </div>
 
+      <!-- PULIZIA FEDINA -->
       <div class="card">
-        <h2>🧹 Pulizia Fedina Penale</h2>
+        <h2>⚖️ Tariffe Pulizia Fedina Penale</h2>
         <p>Servizio riservato esclusivamente alla <strong>Procura</strong>. L'importo è calcolato in base alla percentuale delle multe del cittadino.</p>
         <div class="warning-box"><strong>🚫 VIETATO:</strong> È severamente vietato per chi non fa parte dell'Ufficio della Procura effettuare calcoli di pulizia fedina e comunicarli al cittadino. Non si ha accesso a tali informazioni.</div>
         <div class="divider"></div>
+        <div class="table-wrap">
         <table class="price-table">
           <thead>
-            <tr><th>Tipo</th><th>Costo</th><th>Calcolo</th><th>Esito</th><th>Competenza</th></tr>
+            <tr>
+              <th>Servizio</th>
+              <th>Costo Multe</th>
+              <th>Metodo Calcolo</th>
+              <th>Esito Sanzioni</th>
+              <th>Grado Minimo</th>
+            </tr>
           </thead>
           <tbody>
-            <tr><td><strong>1ª Pulizia Fedina</strong></td><td class="price">25% delle multe</td><td>Calcolata su fattura</td><td>Cancellazione sanzioni</td><td><span class="badge badge-green">Procura</span></td></tr>
-            <tr><td><strong>2ª Pulizia Fedina</strong></td><td class="price">50% delle multe</td><td>Calcolata su fattura</td><td>Cancellazione sanzioni</td><td><span class="badge badge-green">Procura</span></td></tr>
-            <tr><td><strong>3ª Pulizia Fedina</strong></td><td class="price">75% delle multe</td><td>Calcolata su fattura</td><td>Cancellazione sanzioni</td><td><span class="badge badge-green">Procura</span></td></tr>
-            <tr class="last-row"><td><strong>4ª Pulizia Fedina</strong></td><td class="price">100% delle multe</td><td>Calcolata su fattura</td><td><span class="badge badge-red">ULTIMA AMMESSA</span></td><td><span class="badge badge-green">Procura</span></td></tr>
+            <tr>
+              <td><strong>1ª Pulizia Fedina</strong></td>
+              <td class="price">25% delle multe</td>
+              <td>Calcolata su fattura</td>
+              <td>Cancellazione sanzioni</td>
+              <td><span class="badge badge-green">Procura</span></td>
+            </tr>
+            <tr>
+              <td><strong>2ª Pulizia Fedina</strong></td>
+              <td class="price">50% delle multe</td>
+              <td>Calcolata su fattura</td>
+              <td>Cancellazione sanzioni</td>
+              <td><span class="badge badge-green">Procura</span></td>
+            </tr>
+            <tr>
+              <td><strong>3ª Pulizia Fedina</strong></td>
+              <td class="price">75% delle multe</td>
+              <td>Calcolata su fattura</td>
+              <td>Cancellazione sanzioni</td>
+              <td><span class="badge badge-green">Procura</span></td>
+            </tr>
+            <tr class="last-row">
+              <td><strong>4ª Pulizia Fedina</strong></td>
+              <td class="price">100% delle multe</td>
+              <td>Calcolata su fattura</td>
+              <td><span class="badge badge-red">ULTIMA AMMESSA</span></td>
+              <td><span class="badge badge-green">Procura</span></td>
+            </tr>
           </tbody>
         </table>
+        </div>
       </div>
     </div>
 
@@ -2275,13 +2496,17 @@ La Procura può iniziare con le domande.</pre>
 (function() {
   const container = document.getElementById('particles');
   if (!container) return;
-  for (let i = 0; i < 30; i++) {
+  for (let i = 0; i < 40; i++) {
     const p = document.createElement('div');
     p.className = 'particle';
     p.style.left = Math.random() * 100 + '%';
-    p.style.animationDuration = (4 + Math.random() * 8) + 's';
-    p.style.animationDelay = (Math.random() * 6) + 's';
+    p.style.animationDuration = (4 + Math.random() * 9) + 's';
+    p.style.animationDelay = (Math.random() * 8) + 's';
     p.style.width = p.style.height = (1 + Math.random() * 3) + 'px';
+    if (Math.random() > 0.7) {
+      p.style.background = 'var(--cyan)';
+      p.style.boxShadow = '0 0 6px var(--cyan)';
+    }
     container.appendChild(p);
   }
 })();
@@ -2333,7 +2558,7 @@ const pages = {
   'guida-avvocati': 'Guida Avvocati',
   'guida-procura': 'Guida Procura',
   'guida-giudici': 'Guida Giudici',
-  'listino': 'Listino Prezzi',
+  'listino': 'Listino Prezzi e Compenso',
   'giornalino': 'Giornalino',
   'regolamento': 'Regolamento',
   'defcon': 'Gradi di Allerta'
@@ -2411,5 +2636,5 @@ document.querySelectorAll('.nav-sub-item, .nav-item[data-page]').forEach(item =>
   });
 });
 </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1d937240a19bac4',t:'MTc4NDQ1ODc1Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
