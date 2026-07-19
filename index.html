@@ -1146,6 +1146,54 @@ body {
   font-size: 1rem;
 }
 
+/* Price Tables */
+.price-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0;
+}
+.price-table thead th {
+  background: rgba(0,255,65,0.04);
+  border-bottom: 2px solid rgba(0,255,65,0.12);
+  padding: 12px 16px;
+  text-align: left;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.price-table thead th:first-child { border-radius: 10px 0 0 0; }
+.price-table thead th:last-child { border-radius: 0 10px 0 0; }
+.price-table tbody td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  vertical-align: middle;
+}
+.price-table tbody tr {
+  transition: background 0.2s;
+}
+.price-table tbody tr:hover {
+  background: rgba(0,255,65,0.02);
+}
+.price-table tbody tr:last-child td {
+  border-bottom: none;
+}
+.price-table td.price {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  color: var(--accent);
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.price-table tr.last-row td {
+  background: rgba(255,68,68,0.03);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   :root {
@@ -1167,6 +1215,14 @@ body {
   }
   .mobile-toggle {
     display: flex !important;
+  }
+  .price-table thead th,
+  .price-table tbody td {
+    padding: 8px 10px;
+    font-size: 0.78rem;
+  }
+  .price-table td.price {
+    font-size: 0.75rem;
   }
 }
 
@@ -1862,15 +1918,69 @@ La Procura può iniziare con le domande.</pre>
     <!-- LISTINO PREZZI -->
     <div class="content-area" id="page-listino" style="display:none">
       <div class="page-header">
-        <h1>Listino Prezzi e <span class="accent">Compenso</span></h1>
-        <p>Sezione dedicata ai prezzi dei servizi e al compenso del personale</p>
+        <h1>Listino <span class="accent">Prezzi</span></h1>
+        <p>Elenco completo dei prezzi dei servizi e dei documenti governativi</p>
       </div>
+
       <div class="card">
-        <div class="wip-container">
-          <div class="wip-icon">🔧</div>
-          <div class="wip-title">Work in Progress</div>
-          <div class="wip-text">Questa sezione è attualmente in fase di sviluppo. Sarà disponibile a breve.</div>
-        </div>
+        <h2>📄 Documenti e Servizi Base</h2>
+        <p>Servizi disponibili per tutti i gradi a partire da <strong>Assistente Legale</strong>.</p>
+        <div class="divider"></div>
+        <table class="price-table">
+          <thead>
+            <tr><th>Servizio</th><th>Prezzo</th><th>Durata / Note</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Carta d'Identità</td><td class="price">$2.000</td><td>—</td></tr>
+            <tr><td>Patente di Guida</td><td class="price">$3.000</td><td>—</td></tr>
+            <tr><td>Porto d'Armi</td><td class="price">$35.000</td><td>Durata: 1 mese</td></tr>
+            <tr><td>Documento Lavorativo — Tirocinante</td><td class="price">$4.000</td><td>Durata: 2 settimane</td></tr>
+            <tr><td>Documento Lavorativo — Dipendente</td><td class="price">$10.000</td><td>Durata: 1 mese</td></tr>
+            <tr><td>Documento Lavorativo — Direttore</td><td class="price">$30.000</td><td>Durata: 3 mesi</td></tr>
+            <tr><td>Documento Vendita Ambulante</td><td class="price">$15.000</td><td>Durata: 1 mese</td></tr>
+            <tr><td>Permesso Vetri Oscurati</td><td class="price">$30.000</td><td>Ogni targa — Durata: 1 mese</td></tr>
+            <tr><td>Certificato di Parentela</td><td class="price">$15.000</td><td>Durata: 1 mese</td></tr>
+            <tr><td>Certificato di Matrimonio</td><td class="price">$15.000</td><td>Durata: 1 mese</td></tr>
+            <tr><td>Revoca Parentela o Matrimonio</td><td class="price">$15.000</td><td>Validità permanente</td></tr>
+            <tr><td>Info Precedenti Penali</td><td class="price">$3.000</td><td>—</td></tr>
+            <tr><td>Richiesta Pulizia Fedina</td><td class="price">$20.000</td><td>Durata: 2 settimane</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>🏛️ Servizi Procura</h2>
+        <p>Servizi riservati esclusivamente ai membri della <strong>Procura</strong> (Procuratore Aggiunto e gradi superiori).</p>
+        <div class="divider"></div>
+        <table class="price-table">
+          <thead>
+            <tr><th>Servizio</th><th>Prezzo</th><th>Durata / Note</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Cambio Nome e Cognome</td><td class="price">$20.000</td><td>—</td></tr>
+            <tr><td>Permesso Maschera — 2 Settimane</td><td class="price">$75.000</td><td>Durata: 2 settimane</td></tr>
+            <tr><td>Permesso Maschera — 1 Mese</td><td class="price">$150.000</td><td>Durata: 1 mese</td></tr>
+            <tr><td>Permesso Maschera — 2 Mesi</td><td class="price">$275.000</td><td>Durata: 2 mesi</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <h2>🧹 Pulizia Fedina Penale</h2>
+        <p>Servizio riservato esclusivamente alla <strong>Procura</strong>. L'importo è calcolato in base alla percentuale delle multe del cittadino.</p>
+        <div class="warning-box"><strong>🚫 VIETATO:</strong> È severamente vietato per chi non fa parte dell'Ufficio della Procura effettuare calcoli di pulizia fedina e comunicarli al cittadino. Non si ha accesso a tali informazioni.</div>
+        <div class="divider"></div>
+        <table class="price-table">
+          <thead>
+            <tr><th>Tipo</th><th>Costo</th><th>Calcolo</th><th>Esito</th><th>Competenza</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>1ª Pulizia Fedina</strong></td><td class="price">25% delle multe</td><td>Calcolata su fattura</td><td>Cancellazione sanzioni</td><td><span class="badge badge-green">Procura</span></td></tr>
+            <tr><td><strong>2ª Pulizia Fedina</strong></td><td class="price">50% delle multe</td><td>Calcolata su fattura</td><td>Cancellazione sanzioni</td><td><span class="badge badge-green">Procura</span></td></tr>
+            <tr><td><strong>3ª Pulizia Fedina</strong></td><td class="price">75% delle multe</td><td>Calcolata su fattura</td><td>Cancellazione sanzioni</td><td><span class="badge badge-green">Procura</span></td></tr>
+            <tr class="last-row"><td><strong>4ª Pulizia Fedina</strong></td><td class="price">100% delle multe</td><td>Calcolata su fattura</td><td><span class="badge badge-red">ULTIMA AMMESSA</span></td><td><span class="badge badge-green">Procura</span></td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -2301,5 +2411,5 @@ document.querySelectorAll('.nav-sub-item, .nav-item[data-page]').forEach(item =>
   });
 });
 </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a1d937240a19bac4',t:'MTc4NDQ1ODc1Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
